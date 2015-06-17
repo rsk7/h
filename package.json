@@ -1,0 +1,28 @@
+{
+  "name": "h-audio",
+  "version": "0.1.0",
+  "description": "Library for playing notes using webaudio",
+  "main": "h.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsk7/h.git"
+  },
+  "keywords": [
+    "webaudio",
+    "oscillators",
+    "music",
+    "notes"
+  ],
+  "author": "Ravi Singh <ravikrishnasingh@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rsk7/h/issues"
+  },
+  "homepage": "https://github.com/rsk7/h#readme",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
+}
