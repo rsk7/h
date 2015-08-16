@@ -1,0 +1,10 @@
+{
+	"gain": 0.15,
+	"attack": 0.1,
+	"release": 0.1,
+	"detune": null,
+	"wave": {
+		"type": "sine",
+		"data": null 
+	}
+}
