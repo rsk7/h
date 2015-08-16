@@ -26,7 +26,6 @@ describe("note-manager", function() {
 			assert.deepEqual(result, ["D3", "F#2", "A1"]);
 		});
 
-
 		it("should throw error if string is empty", function() {
 			assert.throws(function() {
 				m.getNoteIds("");
