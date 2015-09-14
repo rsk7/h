@@ -28,7 +28,7 @@ var stop = function(dsl) {
 */
 var configure = function(options) {
   config = _.extend(m.config, options);
-  getActiveNotes().forEach(m.configure);
+  m.getActiveNotes().forEach(m.configure);
 };
 
 /*
