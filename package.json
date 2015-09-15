@@ -5,7 +5,8 @@
   "main": "h.js",
   "scripts": {
     "test": "mocha test",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
+    "coverall": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "coveralls": "^2.11.4",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
     "sinon": "^1.15.4"
