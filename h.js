@@ -1,5 +1,4 @@
 // HARMONY
-
 var _ = require("underscore");
 var m = require("./lib/note-manager");
 
