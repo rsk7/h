@@ -64,5 +64,27 @@ describe("note-manager", function() {
 			assert(playSpy.calledOnce);
 		});
 	});
+
+  describe("stopNote", function() {
+    it("should stop playing the given note", function() {
+
+    });
+
+    it("should ignore the note if it's not playing currently", function() {
+
+    });
+  });
+
+  describe("getActiveNotes", function() {
+    it("should return a list of all notes that are currently playing", function() {
+      
+    });
+  });
+
+  describe("configure", function() {
+    it("should set properties to the note passed", function() {
+
+    });
+  });
 });
 
