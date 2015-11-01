@@ -1,6 +1,6 @@
 {
   "name": "h-audio",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Library for playing notes using webaudio",
   "main": "h.js",
   "scripts": {
@@ -32,5 +32,6 @@
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
     "sinon": "^1.15.4"
-  }
+  },
+  "readmeFilename": "README.md"
 }
