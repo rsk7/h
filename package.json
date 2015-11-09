@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha test",
     "coverall": "./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
+    "build": "browserify h.js -o ./build/h.js"
   },
   "repository": {
     "type": "git",

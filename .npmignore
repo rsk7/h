@@ -1,0 +1,7 @@
+coverage
+test
+.gitignore
+.travis.yml
+build
+*.swp
+*.log
