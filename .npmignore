@@ -1,9 +1,0 @@
-coverage
-test
-.gitignore
-.travis.yml
-build
-example
-*.swp
-*.log
-h-browser-export.js
