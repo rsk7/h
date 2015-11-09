@@ -38,10 +38,9 @@ describe("note-manager", function() {
 			});
 		});
 
-		it("should throw when octaves are not specified", function() {
-			assert.throws(function() {
-				m.getNoteIds("D, F#, A");
-			});
+		it("should not throw when octaves are not specified", function() {
+      var result = m.getNoteIds("D, F#, A");
+      assert.deepEqual(result, ["D4", "F#4", "A4"]);
 		});
 	});
 

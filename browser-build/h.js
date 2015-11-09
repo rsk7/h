@@ -145,7 +145,11 @@ var api = {
 
 module.exports = api;
 
-},{"underscore":6}],2:[function(require,module,exports){
+},{"underscore":7}],2:[function(require,module,exports){
+// npmignored only used for outputting browser-build
+window.h = require("./h.js");
+
+},{"./h.js":3}],3:[function(require,module,exports){
 // HARMONY
 var _ = require("underscore");
 var m = require("./lib/note-manager");
@@ -166,7 +170,7 @@ var play = function(dsl) {
 */
 var stop = function(dsl) {
   if(dsl) m.getNoteIds(dsl).map(m.getActiveNote).forEach(m.stopNote);
-  else m.getActiveNotes().forEach(m.stopNote);
+  else getActiveNotes().forEach(m.stopNote);
 };
 
 /*
@@ -175,7 +179,7 @@ var stop = function(dsl) {
 */
 var configure = function(options) {
   config = _.extend(m.config, options);
-  m.getActiveNotes().forEach(m.configure);
+  getActiveNotes().forEach(m.configure);
 };
 
 /*
@@ -184,6 +188,15 @@ var configure = function(options) {
 var activeNoteIds = function() {
   return _.keys(m.activeNotes);
 };
+
+/*
+// get all active notes
+*/
+var getActiveNotes = function() {
+  return _.keys(m.activeNotes).map(function(key) {
+    return {noteId: key, note: m.activeNotes[key]};
+  });
+}
 
 module.exports = {
   play: play,
@@ -196,7 +209,9 @@ module.exports = {
 
 
 
-},{"./lib/note-manager":4,"underscore":6}],3:[function(require,module,exports){
+
+
+},{"./lib/note-manager":5,"underscore":7}],4:[function(require,module,exports){
 module.exports={
 	"gain": 0.15,
 	"attack": 0.1,
@@ -207,21 +222,32 @@ module.exports={
 		"data": null 
 	}
 }
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var _ = require("underscore");
 var Sound = require("./sound");
 var config = require("./config");
 var NoteDictionary = require("../data/notedata");
 
 var activeNotes = {};
+var defaultOctave = 4;
+
+var createNoteIds = function(noteDsl) {
+	return noteDsl.split(",").filter(function(id) {
+		return id.length > 0;
+	}).map(function(id) {
+		id = id.trim();
+		// check if last character is a number
+		var lc = id.slice(-1);
+		if (!/\d/.test(lc)) {
+			id += defaultOctave;
+		}
+		return id.toUpperCase();
+	});
+}
 
 var getNoteIds = function(noteDsl) {
-	if(/([A-G]|[a-g])#?[0-9]\s*(,([A-G]|[a-g])#?[0-9]\s*)*/.test(noteDsl)) {
-		return noteDsl.split(",").filter(function(id) {
-			return id.length > 0;
-		}).map(function(id) {
-			return id.trim();
-		});
+	if (/^([A-G]|[a-g])#?[0-9]?\s*(,\s*([A-G]|[a-g])#?[0-9]?\s*)*$/.test(noteDsl)) {
+		return createNoteIds(noteDsl);
 	} else {
 		var msg = "DSL(" + noteDsl + ") looks invalid. Check it here: https://regex101.com/r/jN2pC0/2";
 		throw new Error(msg);
@@ -229,16 +255,21 @@ var getNoteIds = function(noteDsl) {
 };
 
 var getNote = function(noteId) {
-	var name = noteId.slice(0, -1);
-	var octave = noteId.slice(-1);
+	var lc = noteId.slice(-1);
 	return NoteDictionary.getNote({
-		name: name,
-		octave: parseInt(octave)
+		name: noteId.slice(0, -1),
+		octave: parseInt(lc)
 	});
 };
 
 var getActiveNote = function(noteId) {
-	return {noteId: noteId, note: activeNotes[noteId]};
+	var activeNote = activeNotes[noteId];
+	if (activeNote) {
+		return {
+			noteId: noteId,
+			note: activeNote
+		};
+	}
 };
 
 var getId = function(noteData) {
@@ -275,19 +306,12 @@ var stopNote = function(activeNote) {
   }
 };
 
-var getActiveNotes = function() {
-	return _.keys(activeNotes).map(function(key) {
-		return {noteId: key, note: activeNotes[key]};
-	});
-};
-
 module.exports = {
 	getNoteIds: getNoteIds,
 	getNote: getNote,
 	playNote: playNote,
   stopNote: stopNote,
   getActiveNote: getActiveNote,
-	getActiveNotes: getActiveNotes,
   config: config,
   configure: configure,
   activeNotes: activeNotes,
@@ -298,7 +322,7 @@ module.exports = {
 
 
 
-},{"../data/notedata":1,"./config":3,"./sound":5,"underscore":6}],5:[function(require,module,exports){
+},{"../data/notedata":1,"./config":4,"./sound":6,"underscore":7}],6:[function(require,module,exports){
 var soundContext = new (window.AudioContext || window.webkitAudioContext)();
 
 var sound = function(){
@@ -379,7 +403,7 @@ sound.prototype.stop = function(){
 module.exports = sound;
 
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

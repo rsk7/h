@@ -18,7 +18,7 @@ var play = function(dsl) {
 */
 var stop = function(dsl) {
   if(dsl) m.getNoteIds(dsl).map(m.getActiveNote).forEach(m.stopNote);
-  else m.getActiveNotes().forEach(m.stopNote);
+  else getActiveNotes().forEach(m.stopNote);
 };
 
 /*
@@ -27,7 +27,7 @@ var stop = function(dsl) {
 */
 var configure = function(options) {
   config = _.extend(m.config, options);
-  m.getActiveNotes().forEach(m.configure);
+  getActiveNotes().forEach(m.configure);
 };
 
 /*
@@ -37,6 +37,15 @@ var activeNoteIds = function() {
   return _.keys(m.activeNotes);
 };
 
+/*
+// get all active notes
+*/
+var getActiveNotes = function() {
+  return _.keys(m.activeNotes).map(function(key) {
+    return {noteId: key, note: m.activeNotes[key]};
+  });
+}
+
 module.exports = {
   play: play,
   stop: stop,
@@ -45,5 +54,7 @@ module.exports = {
   activeNotes: m.activeNotes,
   activeNoteIds: activeNoteIds
 };
+
+
 
 
