@@ -2,6 +2,8 @@ Library for playing notes in the browser using webaudio.
 
 [![Build Status](https://travis-ci.org/rsk7/h.svg?branch=master)](https://travis-ci.org/rsk7/harmony)
 
+##Example
+http://rsk7.github.io/h/
 
 ##Usage
 
@@ -12,15 +14,16 @@ var h = require("h-audio");
 
 To play notes: 
 ```javascript
+// if octaves are not specified, the default is 4
 h.play("C,E,G");
-h.play("D,F#,A");
-h.play("G,B,D");
+h.play("D2,F#3,A4");
+h.play("G1,B,D4");
 ```
 
 To stop notes:
 ```javascript
 h.stop("E");
-h.stop("D,F#,A");
+h.stop("D2,F#3,A4");
 ```
 
 To stop all notes:
