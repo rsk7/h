@@ -1,7 +1,7 @@
 window = {
 	AudioContext: function(){
 		this.createOscillator = function(){
-			return { 
+			return {
 				connect: function(){},
 				start: function(){},
 				detune: {
@@ -15,8 +15,8 @@ window = {
 			};
 		};
 		this.createGain = function(){
-			return { 
-				gain: { 
+			return {
+				gain: {
 					value: 0,
 					cancelScheduledValues: function(){},
 					setValueAtTime: function(){},
@@ -25,5 +25,10 @@ window = {
 				connect: function(){}
 			};
 		};
+        this.createAnalyser = function() {
+            return {
+                connect: function(){}
+            };
+        };
 	}
 };
