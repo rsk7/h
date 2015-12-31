@@ -153,6 +153,7 @@ window.h = require("./h.js");
 // HARMONY
 var _ = require("underscore");
 var m = require("./lib/note-manager");
+var s = require("./lib/sound.js");
 
 /*
 // split DSL for note names
@@ -201,6 +202,7 @@ var getActiveNotes = function() {
 module.exports = {
   play: play,
   stop: stop,
+  analyser: s.analyser,
   configure: configure,
   configuration: m.config,
   activeNotes: m.activeNotes,
@@ -211,7 +213,7 @@ module.exports = {
 
 
 
-},{"./lib/note-manager":5,"underscore":7}],4:[function(require,module,exports){
+},{"./lib/note-manager":5,"./lib/sound.js":6,"underscore":7}],4:[function(require,module,exports){
 module.exports={
 	"gain": 0.15,
 	"attack": 0.1,
@@ -325,6 +327,9 @@ module.exports = {
 },{"../data/notedata":1,"./config":4,"./sound":6,"underscore":7}],6:[function(require,module,exports){
 var soundContext = new (window.AudioContext || window.webkitAudioContext)();
 
+var analyser = soundContext.createAnalyser();
+analyser.connect(soundContext.destination);
+
 var sound = function(){
     this.attackTime = 0.75;
     this.releaseTime = 0.75;
@@ -334,7 +339,7 @@ var sound = function(){
     this.vca.gain.value = 0;
     this.vco.connect(this.vca);
     this.vco.start(0);
-    this.vca.connect(soundContext.destination);
+    this.vca.connect(analyser);
     this.on = false;
 };
 
@@ -396,9 +401,11 @@ sound.prototype.stop = function(){
     this.on = false;
     this.envelopeStop(function() {
         this.vco.disconnect();
-        this.vca.disconnect(); 
+        this.vca.disconnect();
     }.bind(this));
 };
+
+sound.analyser = analyser;
 
 module.exports = sound;
 
