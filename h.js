@@ -1,6 +1,7 @@
 // HARMONY
 var _ = require("underscore");
 var m = require("./lib/note-manager");
+var s = require("./lib/sound.js");
 
 /*
 // split DSL for note names
@@ -49,6 +50,7 @@ var getActiveNotes = function() {
 module.exports = {
   play: play,
   stop: stop,
+  analyser: s.analyser,
   configure: configure,
   configuration: m.config,
   activeNotes: m.activeNotes,
