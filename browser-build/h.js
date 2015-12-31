@@ -290,7 +290,7 @@ var configure = function(activeNote) {
 
 /*
 // remember the note we're about to play
-// configure the sound object to play 
+// configure the sound object to play
 // play sound
 */
 var playNote = function(noteData) {
@@ -304,7 +304,7 @@ var playNote = function(noteData) {
 var stopNote = function(activeNote) {
   if (activeNote) {
     activeNote.note.stop();
-    activeNotes[activeNote.noteId] = null;
+    delete activeNotes[activeNote.noteId];
   }
 };
 
@@ -400,8 +400,8 @@ sound.prototype.play = function(frequency) {
 sound.prototype.stop = function(){
     this.on = false;
     this.envelopeStop(function() {
-        this.vco.disconnect();
-        this.vca.disconnect();
+        // this.vco.disconnect();
+        // this.vca.disconnect();
     }.bind(this));
 };
 
