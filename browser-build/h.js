@@ -309,14 +309,14 @@ var stopNote = function(activeNote) {
 };
 
 module.exports = {
-	getNoteIds: getNoteIds,
-	getNote: getNote,
-	playNote: playNote,
+  getNoteIds: getNoteIds,
+  getNote: getNote,
+  playNote: playNote,
   stopNote: stopNote,
   getActiveNote: getActiveNote,
   config: config,
   configure: configure,
-  activeNotes: activeNotes,
+  activeNotes: activeNotes
 };
 
 
@@ -400,8 +400,8 @@ sound.prototype.play = function(frequency) {
 sound.prototype.stop = function(){
     this.on = false;
     this.envelopeStop(function() {
-        // this.vco.disconnect();
-        // this.vca.disconnect();
+        this.vco.disconnect();
+        this.vca.disconnect();
     }.bind(this));
 };
 

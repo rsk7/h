@@ -113,7 +113,7 @@ describe("note-manager", function() {
     it("should be empty if no notes are playing", function() {
       m.playNote({name: "C", octave: "4", frequency: 261.626});
       m.stopNote(m.getActiveNote("C4"));
-      assert(!m.activeNotes["C4"]);
+      assert(Object.keys(m.activeNotes).length === 0);
     });
   });
 
@@ -126,12 +126,12 @@ describe("note-manager", function() {
       config.detune = 4;
       config.wave.type = "sine";
       config.wave.data = "waveTableData";
-      var activeNote = { 
+      var activeNote = {
         note: {
           detune: function() {},
           waveType: function() {},
           setWaveTable: function() {}
-        } 
+        }
       };
       var detuneSpy = sinon.spy(activeNote.note, "detune");
       var waveTypeSpy = sinon.spy(activeNote.note, "waveType");
